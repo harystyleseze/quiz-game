@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '../../types/quiz';
+import type { User } from '../../types/quiz';
 import Button from '../common/Button';
 
 interface LeaderboardProps {
@@ -82,13 +82,13 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
         </div>
       )}
 
-      <div className="flex space-x-4 justify-center">
-        <Button onClick={onPlayAgain} variant="primary">
-          Play Again
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button onClick={onPlayAgain} variant="primary" className="text-lg px-8 py-3">
+          🎮 Play Again
         </Button>
         {scores.length > 0 && (
-          <Button onClick={onClearLeaderboard} variant="danger">
-            Clear Leaderboard
+          <Button onClick={onClearLeaderboard} variant="danger" className="text-lg px-8 py-3">
+            🗑️ Clear Leaderboard
           </Button>
         )}
       </div>

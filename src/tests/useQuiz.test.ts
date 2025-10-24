@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { useQuiz } from '../hooks/useQuiz';
-import { Question } from '../types/quiz';
+import type { Question } from '../types/quiz';
 
 const mockQuestions: Question[] = [
   {

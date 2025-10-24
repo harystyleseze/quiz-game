@@ -1,7 +1,7 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Quiz from '../components/Quiz/Quiz';
-import { Question } from '../types/quiz';
+import type { Question } from '../types/quiz';
 
 const mockQuestions: Question[] = [
   {

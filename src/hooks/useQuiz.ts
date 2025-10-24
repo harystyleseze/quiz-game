@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Question, QuizState } from '../types/quiz';
+import type { Question, QuizState } from '../types/quiz';
 
 const TIME_PER_QUESTION = 30; // 30 seconds per question
 

@@ -1,4 +1,4 @@
-import { User } from '../types/quiz';
+import type { User } from '../types/quiz';
 
 const LEADERBOARD_KEY = 'quiz-game-leaderboard';
 

@@ -1,73 +1,129 @@
-# React + TypeScript + Vite
+# 🎯 Quiz Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A dynamic, responsive quiz game built with React, TypeScript, and Vite. Test your knowledge across various topics and compete for the top spot on the leaderboard!
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Questions**: Load questions from JSON files or APIs
+- **Timer**: 30-second countdown for each question
+- **Score Tracking**: Real-time score calculation
+- **Leaderboard**: Persistent high scores with local storage
+- **Responsive Design**: Works perfectly on all screen sizes
+- **User Management**: Support for multiple players
+- **Accessibility**: Full keyboard navigation and screen reader support
 
-## React Compiler
+## 🎮 How to Play
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Start**: Enter your name to begin the quiz
+2. **Answer Questions**: Read each question and select your answer
+3. **Timer**: Answer before the 30-second timer runs out
+4. **Progress**: See your score update after each question
+5. **Leaderboard**: Compare your score with other players at the end
 
-## Expanding the ESLint configuration
+## 🛠️ Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Clone the repository
+git clone https://github.com/harystyleseze/quiz-game.git
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Navigate to project directory
+cd quiz-game
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Install dependencies
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📁 Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── components/          # React components
+│   ├── Quiz/           # Main quiz component
+│   ├── Question/       # Question display and answers
+│   ├── Timer/          # Countdown timer
+│   ├── Leaderboard/    # High scores display
+│   └── common/         # Reusable components
+├── hooks/              # Custom React hooks
+├── types/              # TypeScript type definitions
+├── utils/              # Utility functions
+├── data/               # Question data
+└── tests/              # Test files
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+```
+
+## 🚀 Deployment
+
+The application is deployed on Vercel and can be accessed at: [Your Vercel URL]
+
+To deploy your own version:
+
+1. Fork this repository
+2. Connect your GitHub account to Vercel
+3. Import the project
+4. Deploy!
+
+## 🎯 Game Rules
+
+- Each question has a 30-second time limit
+- Correct answers award 1 point
+- No points deducted for wrong answers
+- Leaderboard shows top 10 scores
+- Scores are saved locally in your browser
+
+## 🔧 Customization
+
+### Adding Questions
+
+Edit `src/data/questions.json`:
+
+```json
+{
+  "id": 4,
+  "question": "Your question here?",
+  "options": ["Option A", "Option B", "Option C", "Option D"],
+  "correctAnswer": "Option A",
+  "category": "Your Category",
+  "difficulty": "easy"
+}
+```
+
+### Styling
+
+The project uses Tailwind CSS for styling. Modify the configuration in `tailwind.config.js`.
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🐛 Bug Reports
+
+If you encounter any bugs or have suggestions, please [open an issue](https://github.com/harystyleseze/quiz-game/issues).

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Question as QuestionType } from '../../types/quiz';
+import React, { useState, useEffect } from 'react';
+import type { Question as QuestionType } from '../../types/quiz';
 import Button from '../common/Button';
 
 interface QuestionProps {
@@ -12,11 +12,17 @@ interface QuestionProps {
 const Question: React.FC<QuestionProps> = ({
   question,
   onSubmitAnswer,
-  timeRemaining,
-  totalTime
+  timeRemaining: _timeRemaining,
+  totalTime: _totalTime
 }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  // Reset state when question changes
+  useEffect(() => {
+    setSelectedAnswer(null);
+    setHasSubmitted(false);
+  }, [question.id]);
 
   const handleAnswerSelect = (answer: string) => {
     if (hasSubmitted) return;
@@ -31,23 +37,18 @@ const Question: React.FC<QuestionProps> = ({
   };
 
   const getOptionStyles = (option: string) => {
-    const baseStyles = 'p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer ';
+    const baseStyles = 'p-4 rounded-lg border-2 transition-all duration-200 text-gray-800 ';
     
+    // Always show selectable state unless submitted
     if (!hasSubmitted) {
-      return baseStyles + (selectedAnswer === option 
-        ? 'border-blue-500 bg-blue-50' 
-        : 'border-gray-200 hover:border-gray-300');
+      const isSelected = selectedAnswer === option;
+      return baseStyles + (isSelected
+        ? 'border-blue-600 bg-blue-100 cursor-pointer font-semibold' 
+        : 'border-gray-300 bg-white hover:border-blue-400 hover:bg-blue-50 cursor-pointer');
     }
 
-    if (option === question.correctAnswer) {
-      return baseStyles + 'border-green-500 bg-green-50';
-    }
-    
-    if (option === selectedAnswer && option !== question.correctAnswer) {
-      return baseStyles + 'border-red-500 bg-red-50';
-    }
-
-    return baseStyles + 'border-gray-200 opacity-50';
+    // Disabled state after submission (don't show correct/incorrect yet)
+    return baseStyles + 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-60';
   };
 
   return (
@@ -75,12 +76,24 @@ const Question: React.FC<QuestionProps> = ({
             key={index}
             className={getOptionStyles(option)}
             onClick={() => handleAnswerSelect(option)}
+            role="button"
+            tabIndex={hasSubmitted ? -1 : 0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleAnswerSelect(option);
+              }
+            }}
           >
             <div className="flex items-center">
-              <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 mr-3 font-medium">
+              <div className={`w-10 h-10 flex items-center justify-center rounded-full mr-4 font-bold text-lg ${
+                selectedAnswer === option && !hasSubmitted
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-700'
+              }`}>
                 {String.fromCharCode(65 + index)}
               </div>
-              <span>{option}</span>
+              <span className="text-base">{option}</span>
             </div>
           </div>
         ))}
@@ -91,13 +104,17 @@ const Question: React.FC<QuestionProps> = ({
         <Button
           onClick={handleSubmit}
           disabled={!selectedAnswer || hasSubmitted}
+          variant="primary"
+          className="px-8 py-3 text-lg font-semibold"
         >
-          {hasSubmitted ? 'Submitting...' : 'Submit Answer'}
+          {hasSubmitted ? 'Moving to next question...' : 'Submit Answer'}
         </Button>
         
-        <div className="text-sm text-gray-500">
-          Select an option to continue
-        </div>
+        {!hasSubmitted && (
+          <div className="text-sm text-gray-600 font-medium">
+            {selectedAnswer ? '✓ Answer selected' : 'Select an option first'}
+          </div>
+        )}
       </div>
     </div>
   );

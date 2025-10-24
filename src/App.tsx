@@ -1,7 +1,9 @@
-import React from 'react';
 import Quiz from './components/Quiz/Quiz';
-import questions from './data/questions.json';
+import questionsData from './data/questions.json';
+import type { Question } from './types/quiz';
 import './App.css';
+
+const questions = questionsData as Question[];
 
 function App() {
   return (

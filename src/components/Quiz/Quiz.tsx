@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuiz } from '../../hooks/useQuiz';
 import { getLeaderboard, saveToLeaderboard, clearLeaderboard } from '../../utils/storage';
-import { Question as QuestionType, User } from '../../types/quiz';
+import type { Question as QuestionType, User } from '../../types/quiz';
 import Question from '../Question/Question';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import Timer from '../Timer/Timer';
@@ -84,7 +84,7 @@ const Quiz: React.FC<QuizProps> = ({ questions }) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Your awesome name..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-600 transition-all text-gray-900 font-medium"
                 onKeyPress={(e) => e.key === 'Enter' && handleStartQuiz()}
               />
             </div>
@@ -93,7 +93,7 @@ const Quiz: React.FC<QuizProps> = ({ questions }) => {
               onClick={handleStartQuiz}
               disabled={!username.trim()}
               variant="primary"
-              className="w-full"
+              className="w-full text-lg py-4"
             >
               Start Quiz
             </Button>
@@ -105,7 +105,7 @@ const Quiz: React.FC<QuizProps> = ({ questions }) => {
                 Top Scores
               </h3>
               <div className="space-y-2">
-                {leaderboard.slice(0, 3).map((user, index) => (
+                {leaderboard.slice(0, 3).map((user) => (
                   <div key={user.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                     <span className="font-medium text-gray-700">{user.name}</span>
                     <span className="font-bold text-blue-600">{user.score} pts</span>
@@ -171,11 +171,11 @@ const Quiz: React.FC<QuizProps> = ({ questions }) => {
         {/* Footer */}
         <div className="bg-gray-50 border-t border-gray-200 p-4">
           <div className="flex justify-between items-center">
-            <Button onClick={handlePlayAgain} variant="secondary">
-              Restart Quiz
+            <Button onClick={handlePlayAgain} variant="secondary" className="px-6 py-2">
+              🔄 Restart Quiz
             </Button>
-            <div className="text-sm text-gray-500">
-              {isLastQuestion ? 'Last question!' : `${questions.length - quizState.currentQuestionIndex - 1} questions left`}
+            <div className="text-sm font-medium text-gray-700">
+              {isLastQuestion ? '🎯 Last question!' : `📝 ${questions.length - quizState.currentQuestionIndex - 1} questions left`}
             </div>
           </div>
         </div>
